@@ -3,67 +3,110 @@
 
 <head>
 
-    <title>Home Page</title>
+    <title>Home</title>
 
     <script>
 
-        // Stores all folder names
         let folders = [];
 
         function createFolder() {
 
-            // Ask user for folder name
-            var folderName = prompt("Enter Folder Name");
+            let folderName = prompt("Enter Folder Name");
 
-            // If user clicks Cancel
             if (folderName == null)
                 return;
 
-            // Remove extra spaces
             folderName = folderName.trim();
 
-            // Empty name not allowed
             if (folderName == "") {
                 alert("Folder name cannot be empty");
                 return;
             }
 
-            // Check duplicate
             if (folders.includes(folderName)) {
                 alert("Folder name already exists");
                 return;
             }
 
-            // Store folder
             folders.push(folderName);
 
-            // Display folder
             displayFolders();
+
+        }
+
+        function deleteFolder(folderName) {
+
+            let confirmDelete = confirm("Delete " + folderName + " ?");
+
+            if (!confirmDelete)
+                return;
+
+            folders = folders.filter(f => f != folderName);
+
+            displayFolders();
+
+        }
+
+        function openFolder(folderName) {
+
+            localStorage.setItem("selectedFolder", folderName);
+
+            window.location.href = "folder.html";
+
         }
 
         function displayFolders() {
 
-            var container = document.getElementById("folderContainer");
+            let container = document.getElementById("folderContainer");
 
-            // Clear previous buttons
             container.innerHTML = "";
 
-            // Create one button for each folder
-            for (var i = 0; i < folders.length; i++) {
+            for (let i = 0; i < folders.length; i++) {
 
-                var btn = document.createElement("button");
+                let row = document.createElement("div");
 
-                btn.innerHTML = "📁 " + folders[i];
+                row.style.display = "flex";
+                row.style.justifyContent = "space-between";
+                row.style.alignItems = "center";
+                row.style.width = "400px";
+                row.style.margin = "10px auto";
+                row.style.padding = "10px";
+                row.style.background = "white";
+                row.style.borderRadius = "8px";
+                row.style.boxShadow = "0 0 8px lightgray";
 
-                btn.style.width = "180px";
-                btn.style.height = "40px";
-                btn.style.margin = "8px";
-                btn.style.borderRadius = "8px";
-                btn.style.backgroundColor = "#E8F4FD";
-                btn.style.cursor = "pointer";
+                let folderButton = document.createElement("button");
 
-                container.appendChild(btn);
-                container.appendChild(document.createElement("br"));
+                folderButton.innerHTML = "📁 " + folders[i];
+
+                folderButton.style.border = "none";
+                folderButton.style.background = "white";
+                folderButton.style.cursor = "pointer";
+                folderButton.style.fontSize = "16px";
+
+                folderButton.onclick = function () {
+                    openFolder(folders[i]);
+                };
+
+                let deleteButton = document.createElement("button");
+
+                deleteButton.innerHTML = "Delete";
+
+                deleteButton.style.background = "#ff4d4d";
+                deleteButton.style.color = "white";
+                deleteButton.style.border = "none";
+                deleteButton.style.padding = "8px";
+                deleteButton.style.borderRadius = "5px";
+                deleteButton.style.cursor = "pointer";
+
+                deleteButton.onclick = function () {
+                    deleteFolder(folders[i]);
+                };
+
+                row.appendChild(folderButton);
+                row.appendChild(deleteButton);
+
+                container.appendChild(row);
 
             }
 
@@ -73,33 +116,31 @@
 
 </head>
 
-<body style="
-background-color:#F0F8FF;
-font-family:Arial;
-text-align:center;
-">
+<body style="margin:0;
+background:#F0F8FF;
+font-family:Arial;">
 
-    <h1>🏠 Home Page</h1>
+    <div style="text-align:center;padding-top:40px;">
 
-    <button onclick="createFolder()"
-        style="
-padding:10px 20px;
-font-size:16px;
-background-color:#4CAF50;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;">
+        <h1>🏠 Home</h1>
 
-        + Create Folder
+        <button onclick="createFolder()"
+            style="padding:10px 20px;
+                   background:#4CAF50;
+                   color:white;
+                   border:none;
+                   border-radius:5px;
+                   cursor:pointer;">
 
-    </button>
+            + Create Folder
 
-    <br><br>
+        </button>
 
-    <h2>Your Folders</h2>
+        <br><br>
 
-    <div id="folderContainer">
+        <div id="folderContainer">
+
+        </div>
 
     </div>
 
