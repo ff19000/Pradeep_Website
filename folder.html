@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Folder</title>
+
+    <script>
+
+        let uploadedFiles = [];
+
+        function loadFolder() {
+
+            let folder = localStorage.getItem("selectedFolder");
+
+            if (folder == null)
+                folder = "Unknown Folder";
+
+            document.getElementById("folderName").innerHTML = "📁 " + folder;
+
+        }
+
+        function uploadFile() {
+
+            let fileInput = document.getElementById("fileUpload");
+
+            if (fileInput.files.length == 0) {
+
+                alert("Please select a file.");
+
+                return;
+            }
+
+            let fileName = fileInput.files[0].name;
+
+            uploadedFiles.push(fileName);
+
+            displayFiles();
+
+            fileInput.value = "";
+
+        }
+
+        function displayFiles() {
+
+            let container = document.getElementById("files");
+
+            container.innerHTML = "";
+
+            for (let i = 0; i < uploadedFiles.length; i++) {
+
+                let row = document.createElement("div");
+
+                row.style.display = "flex";
+                row.style.justifyContent = "space-between";
+                row.style.alignItems = "center";
+                row.style.width = "450px";
+                row.style.margin = "10px auto";
+                row.style.padding = "10px";
+                row.style.background = "white";
+                row.style.borderRadius = "8px";
+                row.style.boxShadow = "0 0 8px lightgray";
+
+                let lbl = document.createElement("span");
+
+                lbl.innerHTML = "📄 " + uploadedFiles[i];
+
+                let btn = document.createElement("button");
+
+                btn.innerHTML = "Delete";
+
+                btn.style.background = "red";
+                btn.style.color = "white";
+                btn.style.border = "none";
+                btn.style.padding = "6px 12px";
+                btn.style.borderRadius = "5px";
+                btn.style.cursor = "pointer";
+
+                btn.onclick = function () {
+
+                    uploadedFiles.splice(i, 1);
+
+                    displayFiles();
+
+                };
+
+                row.appendChild(lbl);
+                row.appendChild(btn);
+
+                container.appendChild(row);
+
+            }
+
+        }
+
+    </script>
+
+</head>
+
+<body onload="loadFolder()"
+style="
+margin:0;
+background:#F0F8FF;
+font-family:Arial;
+text-align:center;">
+
+<br>
+
+<h1 id="folderName"></h1>
+
+<br>
+
+<input type="file" id="fileUpload">
+
+<button onclick="uploadFile()">
+
+Upload
+
+</button>
+
+<br><br>
+
+<h2>Uploaded Files</h2>
+
+<div id="files">
+
+</div>
+
+<br>
+
+<button onclick="window.location.href='home.html'">
+
+⬅ Back to Home
+
+</button>
+
+</body>
+
+</html>
