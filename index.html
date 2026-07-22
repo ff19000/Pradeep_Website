@@ -2,21 +2,49 @@
 <html>
 
 <head>
-    <title>Pradeep Website</title>
+    <title>Login Page</title>
+
+    <script>
+        function login() {
+
+            var name = document.getElementsByName("email")[0].value;
+            var pass = document.getElementsByName("pass")[0].value;
+
+            if (name == "Pradeep" && pass == "1234") {
+                window.location.href = "home.html";
+            } else {
+                alert("Invalid Username or Password");
+            }
+
+        }
+    </script>
+
 </head>
 
-<body style="background-color: green;">
+<body style="margin:0;
+             background-color:#F0F8FF;
+             display:flex;
+             justify-content:center;
+             align-items:center;
+             height:100vh;">
 
-    <p>Hi Everyone</p>
+    <div style="background:white;
+                padding:30px;
+                border-radius:10px;
+                box-shadow:0 0 15px lightgray;
+                text-align:center;
+                width:300px;">
 
-    <div>
-        <label>Enter Your Name</label>
-        <input type="text" name="email"><br><br>
+        <h2>Login</h2>
 
-        <label>Enter Your Password</label>
-        <input type="password" name="pass"><br><br>
+        <label>Username</label><br>
+        <input type="text" name="email" placeholder="Enter Username"><br><br>
 
-        <button type="submit">Submit</button>
+        <label>Password</label><br>
+        <input type="password" name="pass" placeholder="Enter Password"><br><br>
+
+        <button onclick="login()">Login</button>
+
     </div>
 
 </body>
