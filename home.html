@@ -2,14 +2,106 @@
 <html>
 
 <head>
-    <title>Home</title>
+
+    <title>Home Page</title>
+
+    <script>
+
+        // Stores all folder names
+        let folders = [];
+
+        function createFolder() {
+
+            // Ask user for folder name
+            var folderName = prompt("Enter Folder Name");
+
+            // If user clicks Cancel
+            if (folderName == null)
+                return;
+
+            // Remove extra spaces
+            folderName = folderName.trim();
+
+            // Empty name not allowed
+            if (folderName == "") {
+                alert("Folder name cannot be empty");
+                return;
+            }
+
+            // Check duplicate
+            if (folders.includes(folderName)) {
+                alert("Folder name already exists");
+                return;
+            }
+
+            // Store folder
+            folders.push(folderName);
+
+            // Display folder
+            displayFolders();
+        }
+
+        function displayFolders() {
+
+            var container = document.getElementById("folderContainer");
+
+            // Clear previous buttons
+            container.innerHTML = "";
+
+            // Create one button for each folder
+            for (var i = 0; i < folders.length; i++) {
+
+                var btn = document.createElement("button");
+
+                btn.innerHTML = "📁 " + folders[i];
+
+                btn.style.width = "180px";
+                btn.style.height = "40px";
+                btn.style.margin = "8px";
+                btn.style.borderRadius = "8px";
+                btn.style.backgroundColor = "#E8F4FD";
+                btn.style.cursor = "pointer";
+
+                container.appendChild(btn);
+                container.appendChild(document.createElement("br"));
+
+            }
+
+        }
+
+    </script>
+
 </head>
 
-<body style="background-color:#F0F8FF; text-align:center; margin-top:100px;">
+<body style="
+background-color:#F0F8FF;
+font-family:Arial;
+text-align:center;
+">
 
-<h1>🏠 Welcome Home!</h1>
+    <h1>🏠 Home Page</h1>
 
-<p>You have successfully logged in.</p>
+    <button onclick="createFolder()"
+        style="
+padding:10px 20px;
+font-size:16px;
+background-color:#4CAF50;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;">
+
+        + Create Folder
+
+    </button>
+
+    <br><br>
+
+    <h2>Your Folders</h2>
+
+    <div id="folderContainer">
+
+    </div>
 
 </body>
 
