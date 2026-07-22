@@ -17,6 +17,23 @@
             }
 
         }
+
+       function showPassword()
+       {
+         var pass=document.getElementById("pass");
+
+           if(pass.type=="password")
+           {
+               pwd.type="text"
+           }
+           else
+           {
+                pwd.type="password"
+           }
+       }
+    
+
+        
     </script>
 
 </head>
@@ -41,7 +58,9 @@
         <input type="text" name="email" placeholder="Enter Username"><br><br>
 
         <label>Password</label><br>
-        <input type="password" name="pass" placeholder="Enter Password"><br><br>
+        <input type="password" name="pass" placeholder="Enter Password">
+
+        <button type="button" onClick="showPassword">👁</button><br><br>
 
         <button onclick="login()">Login</button>
 
